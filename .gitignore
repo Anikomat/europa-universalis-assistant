@@ -1,0 +1,70 @@
+# ============================================================
+# EU4 Game Assistant — Git Ignore
+# ============================================================
+
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+*.whl
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
+
+# ── Virtual Environments ────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+
+# ── IDE / Editor ────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ── OS ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ── Environment & Secrets ───────────────────────────────
+.env
+.env.*
+*.pem
+*.key
+
+# ── EU4 Game Assistant — 运行时数据 ─────────────────────
+eu4_game_assistant/agent_context.db*
+eu4_game_assistant/agent_context.json
+
+# ── EU4 Game Assistant — 敏感配置（可能含 API Key）───────────
+eu4_game_assistant/config.yaml
+
+# ── RAG 索引（可重建的二进制数据，体积大）────────────────
+rag_index/*.faiss
+rag_index/*.pkl
+
+# ── Tauri / Rust ────────────────────────────────────────
+frontend/src-tauri/target/
+frontend/src-tauri/gen/       # Tauri v2 自动生成的代码
+
+# ── Node / Vite ─────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+
+# ── 临时文件 ────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak

@@ -1,0 +1,258 @@
+/* === 全局重置 === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent !important;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* === L2D 角色容器（全屏 canvas） === */
+#live2d-container {
+  position: fixed;
+  inset: 0;
+  -webkit-app-region: drag;
+  cursor: grab;
+  outline: none;
+  overflow: hidden;
+}
+
+#live2d-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255,255,255,0.12);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+#live2d-container canvas {
+  display: block;
+  outline: none;
+  border: none !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.85;
+  z-index: 1;
+}
+
+/* === 状态指示器（Avatar 右上角） === */
+#status-dot {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #666;
+  transition: background 0.3s, box-shadow 0.3s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#status-dot.connected {
+  background: #4caf50;
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.5);
+}
+
+#status-dot.disconnected {
+  background: #f44336;
+  box-shadow: 0 0 6px rgba(244, 67, 54, 0.5);
+}
+
+/* ================================================================
+   对话气泡区 — 置于顶部，不与 avatar canvas 重叠
+   ================================================================ */
+#chat-area {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 84%;
+  width: max-content;
+}
+
+/* 对话气泡 */
+.chat-bubble {
+  max-width: 100%;
+  padding: 10px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.55;
+  word-break: break-word;
+  background: rgba(34, 34, 42, 0.93);
+  color: #ebebeb;
+  position: relative;
+  animation: bubbleFloatIn 0.5s ease-out;
+}
+
+/* 气泡尖角 — 指向下方 avatar，代表人物说话 */
+.chat-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 12px solid rgba(34, 34, 42, 0.93);
+}
+
+@keyframes bubbleFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================================================================
+   输入区 — 绑定在 L2D 容器左下角
+   ================================================================ */
+#input-area {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 20;
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ---- 折叠态：仅显示圆形按钮 ---- */
+#input-area.collapsed #input-toggle-btn   { display: flex; }
+#input-area.collapsed #message-input,
+#input-area.collapsed #send-btn,
+#input-area.collapsed #collapse-btn        { display: none; }
+
+/* ---- 展开态：半透明长条 ---- */
+#input-area.expanded #input-toggle-btn    { display: none; }
+#input-area.expanded #message-input,
+#input-area.expanded #send-btn,
+#input-area.expanded #collapse-btn         { display: flex; }
+
+#input-area.expanded {
+  background: rgba(28, 28, 34, 0.82);
+  border-radius: 20px;
+  padding: 5px 6px 5px 14px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  gap: 5px;
+}
+
+/* 折叠触发按钮（圆形） */
+#input-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(88, 118, 190, 0.38);
+  backdrop-filter: blur(6px);
+  color: rgba(255,255,255,0.72);
+  font-size: 17px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+#input-toggle-btn:hover {
+  background: rgba(88, 118, 190, 0.6);
+  transform: scale(1.07);
+}
+
+#input-toggle-btn:active {
+  transform: scale(0.94);
+}
+
+/* 收起按钮（展开态右侧） */
+#collapse-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.55);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#collapse-btn:hover {
+  background: rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.85);
+}
+
+/* 输入框 */
+#message-input {
+  background: transparent;
+  border: none;
+  padding: 6px 4px;
+  color: #e0e0e0;
+  font-size: 13px;
+  outline: none;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+#input-area.expanded #message-input {
+  width: 160px;
+}
+
+#message-input::placeholder {
+  color: rgba(255,255,255,0.26);
+}
+
+/* 发送按钮 */
+#send-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(100, 149, 237, 0.48);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#send-btn:hover {
+  background: rgba(100, 149, 237, 0.72);
+}
+
+#send-btn:active {
+  background: rgba(80, 120, 200, 0.88);
+}

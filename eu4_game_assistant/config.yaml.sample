@@ -1,0 +1,55 @@
+# EU4 Game Assistant v2 配置文件
+# 复制为 config.yaml 后填入实际值
+# 支持多模型分级 + 环境变量
+
+models:
+  # 一般模型（其他模型未配置时回退到此）
+  default:
+    provider: deepseek
+    api_base: "https://api.deepseek.com/v1"
+    api_key: "${LLM_API_KEY}"          # 从环境变量 LLM_API_KEY 读取，或直接填写
+    model: deepseek-chat
+    temperature: 0.7
+    max_tokens: 800
+
+  # 工具调用 / ReAct 决策 — 便宜、快、指令遵循好
+  router:
+    provider: deepseek
+    model: deepseek-chat
+    temperature: 0.3
+    max_tokens: 400
+
+  # 最终回复生成 — 高质量输出
+  reply:
+    provider: deepseek
+    model: deepseek-chat
+    temperature: 0.7
+    max_tokens: 800
+
+  # 视觉模型（最好配置一下，未配置则 capture_screen 工具不可用）
+  # vision:
+  #   provider: Qwen
+  #   model: Qwen/Qwen3-VL-30B-A3B-Instruct
+  #   api_base: "https://api.siliconflow.cn/v1"
+  #   api_key: "${VLM_API_KEY}"
+  #   temperature: 0.3
+  #   max_tokens: 300
+
+rag:
+  index_dir: "../rag_index"    # 相对于 eu4_game_assistant/ 目录
+  top_k: 3
+  embedding_model: "shibing624/text2vec-base-chinese"
+
+screenshot:
+  monitor: 1
+
+pulse:
+  interval_min: 35    # 脉冲最小间隔（秒）
+  interval_max: 180   # 脉冲最大间隔（秒）
+
+context:
+  retention_hours: 24   # 对话记录保留小时数
+
+l2d:
+  model_path: "/models/huifeng/model0.json"   # Live2D 模型路径（相对于 public/）
+  # expression_control: true                  # 启用 AI 自主表情控制（需要语义明确的模型，如 uemodel）

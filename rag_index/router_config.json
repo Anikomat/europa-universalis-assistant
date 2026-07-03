@@ -1,0 +1,122 @@
+{
+  "domains": {
+    "countries": {
+      "name": "国家",
+      "ntotal": 5482,
+      "dim": 768,
+      "file_count": 1285
+    },
+    "missions": {
+      "name": "任务树",
+      "ntotal": 5696,
+      "dim": 768,
+      "file_count": 885
+    },
+    "events": {
+      "name": "事件",
+      "ntotal": 7805,
+      "dim": 768,
+      "file_count": 629
+    },
+    "mechanics": {
+      "name": "游戏机制",
+      "ntotal": 10061,
+      "dim": 768,
+      "file_count": 3371
+    },
+    "provinces": {
+      "name": "省份区域",
+      "ntotal": 2218,
+      "dim": 768,
+      "file_count": 35
+    },
+    "achievements": {
+      "name": "成就",
+      "ntotal": 556,
+      "dim": 768,
+      "file_count": 52
+    },
+    "patches": {
+      "name": "补丁DLC",
+      "ntotal": 1959,
+      "dim": 768,
+      "file_count": 141
+    },
+    "modding": {
+      "name": "模组",
+      "ntotal": 3171,
+      "dim": 768,
+      "file_count": 178
+    }
+  },
+  "state_router": {
+    "current_country": [
+      "countries",
+      "missions"
+    ],
+    "active_event": [
+      "events"
+    ],
+    "mission_tree": [
+      "missions"
+    ],
+    "war_combat": [
+      "mechanics"
+    ],
+    "economy_trade": [
+      "mechanics"
+    ],
+    "diplomacy": [
+      "mechanics"
+    ],
+    "province_dev": [
+      "provinces"
+    ],
+    "achievement_hint": [
+      "achievements"
+    ],
+    "patch_notes": [
+      "patches"
+    ],
+    "modding_help": [
+      "modding"
+    ],
+    "general_query": [
+      "countries",
+      "mechanics",
+      "missions",
+      "events"
+    ]
+  },
+  "category_mapping": {
+    "国家": "countries",
+    "国家数据模板": "countries",
+    "任务": "missions",
+    "任务图标": "missions",
+    "事件": "events",
+    "趣味事件": "events",
+    "内政": "mechanics",
+    "军事": "mechanics",
+    "游戏概念": "mechanics",
+    "经济": "mechanics",
+    "外交": "mechanics",
+    "科技": "mechanics",
+    "陆战": "mechanics",
+    "海战": "mechanics",
+    "殖民": "mechanics",
+    "要塞": "mechanics",
+    "海军": "mechanics",
+    "陆军": "mechanics",
+    "省份机制": "provinces",
+    "区域": "provinces",
+    "地区": "provinces",
+    "省份": "provinces",
+    "成就": "achievements",
+    "补丁": "patches",
+    "DLC": "patches",
+    "模组制作": "modding",
+    "模板": "modding"
+  },
+  "model": "C:\\Users\\Aniko\\.cache\\huggingface\\hub\\shibing624-text2vec-base-chinese",
+  "chunk_size": 800
+}

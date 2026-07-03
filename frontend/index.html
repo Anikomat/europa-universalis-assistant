@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>欧陆姬 · EU4助手</title>
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <!-- L2D 角色画布（全屏，可拖拽区域） -->
+  <div id="live2d-container" data-tauri-drag-region>
+    <div id="live2d-hint">L2D 模型待加载</div>
+
+    <!-- 对话气泡 — 仅显示最新一条，置顶，不与 canvas 重叠 -->
+    <div id="chat-area"></div>
+
+    <!-- 状态指示灯 — avatar 右上角 -->
+    <div id="status-dot" title="未连接"></div>
+
+    <!-- 输入区（绑定在 L2D 容器左下角） -->
+    <div id="input-area" class="collapsed">
+      <button id="input-toggle-btn" title="输入">···</button>
+      <input
+        id="message-input"
+        type="text"
+        placeholder="输入问题..."
+        autocomplete="off"
+      />
+      <button id="send-btn">→</button>
+      <button id="collapse-btn" title="收起">×</button>
+    </div>
+  </div>
+
+  <!-- Cubism 4 SDK -->
+  <script src="/live2dcubismcore.min.js"></script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
