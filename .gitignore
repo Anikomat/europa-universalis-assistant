@@ -53,8 +53,8 @@ eu4_game_assistant/agent_context.json
 eu4_game_assistant/config.yaml
 
 # ── RAG 索引（可重建的二进制数据，体积大）────────────────
-rag_index/*.faiss
-rag_index/*.pkl
+# rag_index/*.faiss
+# rag_index/*.pkl
 
 # ── Tauri / Rust ────────────────────────────────────────
 frontend/src-tauri/target/
