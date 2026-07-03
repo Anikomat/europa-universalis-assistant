@@ -27,7 +27,7 @@ config/             YAML 配置与 Prompt 管理
 ### 1. 克隆仓库
 
 ```bash
-git clone <repository-url>
+git clone "https://github.com/Anikomat/europa-universalis-assistant.git"
 cd eu4-game-assistant
 ```
 
